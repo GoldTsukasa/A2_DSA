@@ -1,0 +1,236 @@
+//Task 1
+4nlog(n) + 2n = O(n log n)
+3n + 100logn = O(n)
+n 2 + 10n = O(n 2 )
+2 10 = O(1)
+4n = O(n)
+n 3 = O(n 3 )
+2 logn = O(2 n )
+2 n = O(2 n )
+n log n = O(n log n)
+=> Sort ascending: 2^10 ; 3n + 100logn; 4n; nlogn; 4nlog(n)+2n; n^2 + 10n; n^3 ; 2^logn ; 2^n .
+
+
+//Task 2
+First Way :
+int main(){
+    int n;
+    int s = 1;
+    cin >> n;
+    for( int i = 0; i < n; i++){
+	s = s*2;
+    }
+    cout << s;
+}
+Second Way:
+#include <cmath>
+int main(){
+    int n; 
+    cin >>n;
+    cout << pow(2,n);
+} 
+
+
+//Task 3
+//C++ Queue Operations with array
+Enqueue(int queue[], int val, int rear, int size){
+    if(rear == size) //Queue is full
+	cout<< "Queue Overflow!" << endl;
+    else{
+	queue[rear-1] = val;
+	rear++;
+    }
+}
+
+
+Complexity = O(1)
+
+
+
+
+Dequeue(int queue[], int front, int rear) {
+    if(front == rear)            // Queue is empty
+        cout << "Queue Underflow!";
+    else {
+        queue[front] = 0;
+        front++;
+    }
+
+}
+
+
+Complexity = O(1)    
+
+
+
+
+Display(int queue[], int front, int rear) {
+    if (front == rear)
+	cout<<"Queue is empty!"<<endl;
+   else {
+      cout<<"Queue: ";
+      for (int i = front; i <= rear; i++)
+         cout << queue[i] << " " << endl;
+   }
+
+Complexity = O(n)	
+
+
+
+
+
+
+//Task 4 
+//C++ Queue Operations with linked list
+
+Enqueue(node* front, node* rear, node* tmp, int val){
+    if (rear == NULL){
+	rear->next = NULL;
+	rear->data = val;
+	front = rear;
+    }else {
+	rear->next = NULL;
+	tmp->data = val;
+	tmp->next = NULL;
+	rear = tmp;
+
+    }
+}
+
+
+Complexity = O(1)
+
+
+
+
+Dequeue(node* front, node* rear, node* tmp){
+    tmp = front;
+    if (front == NULL){
+	cout << "Queue Underflow!" << endl;
+	return;
+    }else {
+	if(tmp->next != NULL){
+	    tmp = tmp->next;
+	    front = tmp;
+	}else {
+	    front = NULL;
+	    rear = NULL;
+	}
+    }
+}
+
+
+Complexity = O(1)
+
+
+
+
+Display(node* front, node* rear, node* tmp){
+    tmp = front;
+    if((front == NULL) && (rear == NULL)){
+	cout << "Queue is Empty!" << endl;
+	return;
+    }
+    while(tmp != NULL){
+	cout << tmp->data << " " ;
+	tmp = tmp->next;
+	}
+    cout << endl;
+}
+
+
+Complexity = O(n);
+
+
+
+
+
+//Task 5
+//C++ Stack Operations with array
+Push(int stack[], int val, int top, int size){
+    if(top >= size - 1)
+	cout << "Stack Overflow!" << endl;
+    else {
+	top++;
+	stack[top] = val;
+    }
+}
+
+
+Complexity = O(1)
+
+
+
+
+Pop(int stack[], int top){
+    if(top <= -1)
+	cout << "Stack Underflow!" << endl;
+    else {
+	top--;
+    }
+}
+
+
+Complexity = O(1)
+
+
+
+
+Display(int stack[], int top){
+    if (top >= 0){
+	cout << "Stack: ";
+    	for (int i = top; i >= 0; i--)
+	    cout << stack[i] << " " << endl;
+    }else {
+	cout << "Stack empty!" << endl;
+}
+
+
+Complexity = O(n)
+
+
+
+
+
+//Task 6
+//C++ Stack Opetations with linked list
+Push(node* top, node* newNode, int val){
+    newNode->data = val;
+    newNode->next = top'
+    top = newNode;
+}
+
+
+Complexity = O(1)
+
+
+
+
+Pop(node* top){
+    if(top == NULL){
+	cout << "Stack Underflow!" << endl;
+    }else {
+	top = top->next;
+    }
+}
+
+
+Complexity = O(1)
+
+
+
+
+Display(node* top, node* ptr){
+    if(top == NULL){
+	cout << "Stack is Empty!"
+    }else {
+	ptr = top;
+	while(ptr != NULL){
+	cout << ptr->data << " ";
+	ptr = ptr->next;
+	}
+    }
+    cout << endl;
+}
+
+Complexity = O(n)
