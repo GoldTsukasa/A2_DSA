@@ -1,0 +1,101 @@
+#include<iostream>
+using namespace std;
+int depth[30];
+
+
+void init(int n) {
+	for (int i=1;i<=n;i++) {
+		depth[i]=0;
+	}
+}
+
+
+void input(int a[][30], int &n, int &m){
+	cin>>n;
+	cin>>m;
+	int x,y;
+	for (int i=1;i<=n;i++)
+		for (int j=1;j<=n;j++) a[i][j]=0;
+	for (int i=1;i<=m;i++) {
+		cin>>x>>y;
+		a[x][y]=1;	
+	}
+}
+
+
+void treeDepth(int v, int a[][30],int n){
+	for (int u=1;u<=n;u++){
+		if (a[v][u]){
+			depth[u]=depth[v]+1;
+			treeDepth(u,a,n);
+		}
+	}
+}
+
+
+int maxDepth(int n){
+	int max=depth[0];
+	for (int i=1;i<=n;i++) {
+		if (max<depth[i]) max=depth[i];
+		
+	}
+	return max;	
+}
+
+
+void preOrder(int u, int a[][30], int n){
+	cout<<u<<"\t";
+	for (int v=1;v<=n;v++)
+		if (a[u][v]) preOrder(v,a,n);	
+}
+
+
+void postOrder(int u, int a[][30], int n){
+	for (int v=1;v<=n;v++)
+		if (a[u][v]) postOrder(v,a,n);
+	cout<<u<<"\t";	
+}
+
+
+bool isBinaryTree(int a[][30],int n){
+	int num_Children;
+	 for (int i=1;i<=n;i++){
+	 	num_Children=0;
+	 	for (int j=1;j<=n;j++)
+	 		if (a[i][j]) {
+			 num_Children++;
+			 if (num_Children>2) return false;
+	 	}
+	 }
+	 return true;
+}
+
+
+void inOrder(int u,int a[][30], int n){
+	int leftChild=0, rightChild=0; 
+	for (int v=1;v<=n;v++)
+		if (a[u][v]) {
+			if (!leftChild) leftChild=v;
+			else { rightChild=v; break;
+			}
+		}
+		if (leftChild) inOrder(leftChild,a,n);
+		  cout<<u<<"\t";	
+		if  (rightChild) inOrder(rightChild,a,n);
+}
+
+int main(){
+	int a[30][30];
+	int n;
+	int m;
+	input(a,n,m);
+	init(n);
+	treeDepth(1,a,n);
+	cout<<maxDepth(n)<<endl;
+	preOrder(1,a,n);
+	cout<<endl;
+	postOrder(1,a,n);
+	cout<<endl;
+	if (isBinaryTree(a,n)) inOrder(1,a,n);
+	return 0;
+}
