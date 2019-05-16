@@ -1,0 +1,149 @@
+//Task 1
+#include<bits/stdc++.h>
+using namespace std;
+void Merge(int a[], int left, int mid, int right){
+	int *temp;
+	int i = left;
+	int j = mid + 1;
+
+	temp = new int[right - left + 1];
+
+	for (int k = 0; k <= right - left; k++){
+		if (a[i] < a[j]){
+			temp[k] = a[i];
+			i++;
+		}
+		else{
+			temp[k] = a[j];
+			j++;
+		}
+		if (i == mid + 1){
+			while (j <= right){
+				k++;
+				temp[k] = a[j];
+				j++;
+			}
+			break;
+		}
+		if (j == right + 1){
+			while (i <= mid){
+				k++;
+				temp[k] = a[i];
+				i++;
+			}
+			break;
+		}
+	}
+	for (int k = 0; k <= right - left; k++)
+		a[left + k] = temp[k];
+	delete temp;
+}
+void MergeSort(int a[], int left, int right){
+	if (right > left){
+		int mid;
+		mid = (left + right) / 2;
+		MergeSort(a, left, mid);
+		MergeSort(a, mid + 1, right);
+		Merge(a, left, mid, right);
+	}
+}
+
+int main(){
+    int n; cin>>n;
+	int a[n];
+	for (int i = 0; i < n; i++){
+		cin >> a[i];
+	}
+	MergeSort(a, 0, n-1);
+	for (int i = 0; i < n; i++)
+		cout << a[i] << " ";
+	return 0;
+}
+
+//Task 2
+#include <bits/stdc++.h>
+using namespace std;
+
+void allPossibleSubset(int arr[],int n)
+{
+    int X;
+    cout<<"Enter X: "<<endl;
+    cin>>X;
+    bool check = false;
+	int  count = pow(2,n);
+	// The outer for loop will run 2^n times to print all subset .
+	// Here variable i will act as a binary counter
+	for (int i = 0; i < count; i++)
+	{
+		// The inner for loop will run n times , As the maximum number of elements a set can have is n
+		// This loop will generate a subset
+		int sum = 0;
+		for (int j = 0; j < n; j++)
+		{
+			// This if condition will check if jth bit in binary representation of  i  is set or not
+			// if the value of (i & (1 << j)) is greater than 0 , include arr[j] in the current subset
+			// otherwise exclude arr[j]
+			if ((i & (1 << j)) > 0)
+                sum += arr[j];
+				//cout << arr[j] << " ";
+		}
+		if (sum == X){
+            check = true;
+            break;
+		}
+		//cout <<"SUM = "<<sum<<"\n";
+	}
+	if (check == true){
+        cout<<"YES"<<"\n";
+	}
+	else cout<<"NO"<<endl;
+}
+
+int main()
+{
+	int n;
+	cout << "Enter size of the set\n";
+	cin >> n;
+
+	int arr[n];
+	cout << "Enter Elements of the set\n";
+	for(int i=0;i<n;i++)
+		cin >> arr[i];
+
+	allPossibleSubset(arr,n);
+
+	return 0;
+}
+
+
+//Task 3
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n,m;
+    int sum =0;
+    int Max = 0;
+    cin>>n>>m;
+    int arr[n][2];
+    for (int row = 0; row < n; row++)
+    {
+        for (int col =0; col < 2; col++)
+        {
+            cin>>arr[row][col];
+        }
+    }
+    for (int row1 =0; row1 <n; row1++)
+    {
+        for (int row2 = row1 + 1; row2 <n; row2++ )
+        {
+            if (arr[row1][0] + arr[row2][0] <= m){
+                sum= arr[row1][1]  +arr[row2][1];
+                if (sum> Max) Max = sum;
+            }
+        }
+    }
+    cout<<Max;
+}
+
