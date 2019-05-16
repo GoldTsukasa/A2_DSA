@@ -1,0 +1,173 @@
+//Task 1
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+        ifstream inFile;
+        inFile.open("numbers.txt");
+        vector<int> a;
+        if(inFile.is_open()){
+            int n;
+            while(!inFile.eof())
+            {
+                inFile>>n;
+                a.push_back(n);
+            }
+            cout<<"Sorted: ";
+            for (int i=0; i<a.size(); i++){
+                for(int j=i+1;j<a.size();j++) {
+                    if(a[i]>a[j]) swap(a[i], a[j]);
+                }
+            }
+            for(int i = 0; i < a.size(); i++)
+            cout << a[i] << " ";
+        }
+        else{
+            cout << "Unable to open file";
+        }
+        inFile.close();
+        ofstream outFile;
+        outFile.open("numbers.sorted");
+        if (outFile.is_open())
+        {
+            outFile.clear();
+            for (int i=0; i<a.size(); i++){
+                outFile<<a[i]<<" ";
+            }
+        }
+        else {
+            cout<<"Unable to open output file"<<endl;
+            return -1;
+        }
+
+}
+
+//Task 2 
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    ifstream inFile;
+    inFile.open("matrix.txt");
+    if(inFile.is_open()){
+        int m,n;
+        inFile>>m;
+        inFile>>n;
+        int arr[m][n];
+        while(!inFile.eof()){
+            for(int i=0;i<m;i++) {
+                for(int j=0;j<n;j++){
+                    inFile>>arr[i][j];
+                }
+            }
+        }
+        int sum;
+        int Max=arr[0][0]+arr[0][1]+arr[1][0]+arr[1][1];
+        int row1=1,col1=1,row2=2,col2=2;
+        for(int i=0;i<m-1;i++){
+            for(int j=0;j<n-1;j++){
+                sum=arr[i][j]+arr[i][j+1]+arr[i+1][j]+arr[i+1][j+1];
+                if(sum>Max){
+                    Max=sum;
+                    row1=i+1;
+                    col1=j+1;
+                    row2=i+2;
+                    col2=j+2;
+                }
+            }
+        }
+        cout<<row1<<" "<<col1<<" "<<row2<<" "<<col2<<" "<<Max;
+        ofstream outFile;
+        outFile.open("matrix.out");
+        if(outFile.is_open()){
+            outFile.clear();
+            outFile<<row1<<" "<<col1<<" "<<row2<<" "<<col2<<" "<<Max;
+        }
+    }
+    else {
+        cout<<"Unable to open file";
+        return -1;
+    }
+    inFile.close();
+    return 0;
+}
+
+//Task 3
+#include<bits/stdc++.h>
+using namespace std;
+int GCD(int a,int b)
+{
+    if (b==0) return a;
+    else return GCD(b,a%b);
+}
+int main () {
+    int a,b;
+    cin>>a>>b;
+    int m=GCD(a,b);
+    cout<<m;
+}
+
+//Task 4
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string> v;
+
+void createbin(int n) {
+    v.push_back("0");
+    v.push_back("1");
+    while (v[0].length() < n) {
+        int l = v.size();
+        for (int i = 0; i < l; i ++) {
+            v.push_back(v[i] + "0");
+            v[i] = v[i] + "1";
+        }
+    }
+
+    for (int i = 0; i < v.size(); i ++)
+        cout << v[i] << "\n";
+}
+
+int main() {
+    int n;
+    cin >> n;
+    createbin(n);
+    return 0;
+}
+
+//Task 5
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i = 0; i < n; i++){
+        arr[i] = i + 1;
+        cout<<arr[i];
+    }
+    for(int i = n - 1; i > 0; i--){
+        if(arr[i] > arr[i - 1]){
+            for(int j = n - 1; j >= i; j--){
+                if(arr[j] > arr[i - 1]){
+                    int temp = arr[j];
+                    arr[j] = arr[i - 1];
+                    arr[i - 1] = temp;
+                    break;
+                }
+            }
+            for(int j = n - 1; j > ((n - 1 + i) / 2); j--){
+                int temp = arr[i + n - 1 - j];
+                arr[i + n - 1 - j] = arr[j];
+                arr[j] = temp;
+            }
+            cout<<endl;
+            for(int j = 0; j < n; j++){
+                cout<<arr[j];
+            }
+            i = n;
+        }
+    }
+    return 0;
+}
